@@ -147,7 +147,7 @@ function Profile({ navigation }) {
                   marginHorizontal: 20,
                   paddingBottom: 20,
                 }}>
-                Name : {seeker?.name}
+                {seeker?.name}
               </Text>
             </View>
             <View
@@ -168,7 +168,7 @@ function Profile({ navigation }) {
                   width: "100%",
                   textAlign: "center",
                 }}>
-                {seeker?.phone}
+                Phone : {seeker?.phone}
               </Text>
               <Text
                 style={{
@@ -178,7 +178,7 @@ function Profile({ navigation }) {
                   width: "100%",
                   textAlign: "center",
                 }}>
-                {seeker?.email}
+                Email : {seeker?.email}
               </Text>
               <Text
                 style={{
@@ -188,7 +188,7 @@ function Profile({ navigation }) {
                   width: "100%",
                   textAlign: "center",
                 }}>
-                {seeker?.address}
+                Address : {seeker?.address}
               </Text>
             </View>
             <View
