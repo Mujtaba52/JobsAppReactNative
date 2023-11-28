@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "404623696003",
+    "project_id": "reactnative-authenticati-33afb",
+    "storage_bucket": "reactnative-authenticati-33afb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404623696003:android:c599c81504a9cab49ebbb6",
+        "android_client_info": {
+          "package_name": "com.anonymous.jobsApplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404623696003-iuru6r0573jj00s67quubv36j4aenv1q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anonymous.jobsApplication",
+            "certificate_hash": "539ba753c0b0c85dd245bcff5bb43cacbc4ccc6d"
+          }
+        },
+        {
+          "client_id": "404623696003-qv3vfk0va46ce2u2036s79m38goo02a5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anonymous.jobsApplication",
+            "certificate_hash": "511423a055c0d6ccde9bad1ab97b13ae9d138391"
+          }
+        },
+        {
+          "client_id": "404623696003-doe1cpjrlljj8om770ha3ri9s9vatoc8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc1v0XzNdnm0y0_JZgB85k6cXvxocVZyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404623696003-75v7bge4t1fcsj0a6gtipgqgcsj35j6q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "404623696003-tsj6kofl9jsis8jro1o68l4ohp09t1i1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
