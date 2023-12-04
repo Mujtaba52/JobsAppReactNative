@@ -31,9 +31,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.jobsApplication",
@@ -49,7 +47,7 @@
       "versionCode": 1
     },
     "packagerOpts": {
-      "sourceExts": [ "js", "json", "ts", "tsx", "jsx", "vue"]
+      "sourceExts": ["js", "json", "ts", "tsx", "jsx", "vue"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -59,7 +57,7 @@
         "projectId": "7060e1ae-b62b-4807-9345-9f3a2baf0afc"
       }
     },
-    "owner": "tayyabrana"
+    "owner": "mujhassan786"
   },
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-3940256099942544~3347511713",
