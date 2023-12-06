@@ -159,8 +159,16 @@ function Search({ route, navigation }) {
   };
 
   const JobClick = (id) => {
+    console.log("IDDDD", id);
     recordInteraction(id, ID, "", "", "JOB").then((res) => console.log(res));
-    navigation.push("JobDetails", { ID: id });
+    navigation.push("ApiDescription", { ID: id });
+
+    // let num = Number(val.company);
+    // if (isNaN(num)) {
+    //   navigation.push("ApiDescription", { ID: val.id });
+    // } else {
+    //   navigation.push("JobDetails", { ID: val.id });
+    // }
   };
 
   useEffect(() => {
@@ -236,7 +244,10 @@ function Search({ route, navigation }) {
                     marginBottom: 20,
                   }}>
                   <Pressable
-                    onPress={() => navigation.goBack()}
+                    onPress={() => {
+                      console.log("Backkkk");
+                      navigation.goBack();
+                    }}
                     style={{ padiingRight: 5 }}>
                     <Image
                       style={{
