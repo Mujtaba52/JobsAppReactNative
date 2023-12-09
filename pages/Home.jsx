@@ -271,7 +271,11 @@ function Home({ route, navigation }) {
                   placeholder={"Start your Job Search"}
                 />
                 <Pressable
-                  onPress={() => navigation.push("Search", { query: search })}
+                  onPress={
+                    search == ""
+                      ? () => navigation.push("Jobs")
+                      : () => navigation.push("Search", { query: search })
+                  }
                   style={{ marginLeft: "auto" }}>
                   <Image
                     style={{ width: 25, height: 25 }}
