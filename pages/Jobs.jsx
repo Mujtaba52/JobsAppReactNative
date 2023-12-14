@@ -199,7 +199,7 @@ function Jobs({ navigation }) {
                               rippleColor="#13a3e1"
                               rippleOpacity={0.2}
                               onPress={() => {
-                                console.log("Pressing JOBCLICK!!");
+                                console.log("Pressing JOBCLICK!!", item);
                                 JobClick(item);
                               }}>
                               <View
