@@ -257,6 +257,14 @@ export const completeRegistration = (name, size, id) =>
 
 //JOBS API CALL
 export const fetchAllJobs = (user) => API.post("/jobs/all", { user: user });
+// .then((response) => {
+//   // Handle response data
+//   console.log("response DATA **", response.data);
+// })
+// .catch((error) => {
+//   // Handle errors
+//   console.error("Error fetching jobs:", error);
+// });
 export const fetchRecentJobs = () => API.get("/jobs/recent");
 export const fetchRecommendedJobs = (user, tag) =>
   API.post("/jobs/recommended", { user: user, tag: tag });
