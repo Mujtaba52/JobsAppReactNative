@@ -198,7 +198,12 @@ const DataView = ({ data }) => (
         style={{ marginHorizontal: 0, marginTop: 10 }}
         data={data}
         renderItem={({ item }) => (
-          <Pressable onPress={() => JobClick(item.id)}>
+          <Pressable
+            onPress={() => {
+              console.log("renderItem****", item);
+
+              JobClick(item.id);
+            }}>
             <View
               style={{
                 marginLeft: 25,
