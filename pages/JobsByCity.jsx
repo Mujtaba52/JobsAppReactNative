@@ -55,7 +55,8 @@ function JobsByCity({ route, navigation }) {
 
 	const JobClick = (id) => {
         recordInteraction(id, ID, '', '', 'JOB').then(res => console.log(res));
-        navigation.push('JobDetails', { ID: id });
+		navigation.push("ApiDescription", { ID: id });
+        // navigation.push('JobDetails', { ID: id });
     };
 
 	
