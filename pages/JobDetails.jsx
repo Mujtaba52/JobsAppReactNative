@@ -46,7 +46,7 @@ const JobDetails = ({ route, navigation }) => {
   const seeker = useSelector((state) => state.seeker.seeker);
 
   useEffect(() => {
-    console.log(job);
+    console.log("jobs deatilss",job);
   }, [job]);
 
   const [isloading, setIsLoading] = useState(true);
