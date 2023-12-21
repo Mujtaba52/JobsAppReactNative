@@ -10,9 +10,9 @@ import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 
 
 function JobsByCity({ route, navigation }) {
-
-	// console.log(route)
+	const [currentCity, setCurrentCity] = useState(null);
 	const { CITYID } = route.params
+	const { cityName } = route.params
 
 	const jobs = useSelector(state => state.job.cityJobs)
 	const error = useSelector(state => state.error.cityJobError)
@@ -21,51 +21,52 @@ function JobsByCity({ route, navigation }) {
 	const dispatch = useDispatch()
 	const [loading, setLoading] = useState(true)
 	const [data, setData] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
+    const [fetchedCity, setFetchedCity] = useState(null);
+
 
 	const [ID, setID] = useState()
+	useEffect(() => {
+        const fetchData = async () => {
+            const id = await AsyncStorage.getItem('ID');
+            setID(id);
+        };
+        fetchData();
+    }, []);
+	
 
 	useEffect(() => {
-		if (ID) {
-			if (loading) {
-				if (!jobs) {
-					dispatch(CityJobs(ID, CITYID))
-				} else if (jobs.length === 0 || jobs[0].city !== CITYID) {
-					dispatch(CityJobs(ID, CITYID))
-				} else {
-					setData(jobs)
-				}
-			}
-		}
-	}, [dispatch, jobs, ID]);
+        if (ID && cityName !== fetchedCity) {
+			setIsLoading(true); // Reset loading state
+			setData([])
+            dispatch(CityJobs(ID, cityName.split(' ')[0]));
+            setFetchedCity(cityName);
+           
+			// setData([])
+        }
+    }, [ID, cityName, fetchedCity, dispatch]);
 
 	useEffect(() => {
-		if (success || error || nodata) {
-			setLoading(false)
-			setData(jobs)
-		}
-	}, [success, error, nodata]);
-
-	useEffect(() => {
-		if (jobs) {
-			setData(jobs)
-		}
-	}, [jobs]);
+        if (fetchedCity === cityName) {
+			setData(jobs);
+            setIsLoading(false);
+        }
+    }, [jobs, cityName, fetchedCity]);
 
 	const JobClick = (id) => {
-		recordInteraction(id, ID, '', '', 'JOB').then(res => console.log(res))
-		navigation.push('JobDetails', { ID: id })
-	}
+        recordInteraction(id, ID, '', '', 'JOB').then(res => console.log(res));
+		navigation.push("ApiDescription", { ID: id });
+        // navigation.push('JobDetails', { ID: id });
+    };
 
-	useEffect(() => {
-		GetData()
-	}, []);
+	
 	const GetData = async () => {
 		const id = await AsyncStorage.getItem('ID')
 		setID(id);
 	}
 
 	return (
-		<View style={{ flex:1}}> 
+		<View style={{ flex:1}} key={cityName}> 
 		<ScrollView style={{ flex: 1, backgroundColor: '#F1F1F1' }}>
 			<View style={{ backgroundColor: '#EAEAEA' }}>
 				<View style={{ flexDirection: 'row', height: 90 }}>
@@ -93,10 +94,11 @@ function JobsByCity({ route, navigation }) {
 						padding: 0
 					}}>Jobs</Text>
 				</View>
-				{loading ?
-					<View style={{ marginTop: 200 }}>
-						<ActivityIndicator size={60} color="#13A3E1" />
-					</View>
+				{isLoading ?
+					( <ActivityIndicator size={60} color="#13A3E1" style={{ marginTop: 200 }} />)
+					: nodata || (data && data.length === 0) ? (
+						<NoDataView />
+					  )
 					:
 					<SafeAreaView>
 						<FlatList nestedScrollEnabled={false} scrollEnabled={false}
@@ -221,5 +223,23 @@ function JobsByCity({ route, navigation }) {
 		</View>
 	)
 }
+
+const NoDataView = () => (
+	<View style={{ marginTop: 200 }}>
+	  <Image
+		source={require("../assets/nodata.png")}
+		style={{
+		  width: 260,
+		  height: 260,
+		  marginLeft: 80,
+		  marginBottom: -20,
+		  marginTop: 40,
+		}}
+	  />
+	  <Text style={{ textAlign: "center", fontFamily: "poppins_medium" }}>
+		No Jobs Found
+	  </Text>
+	</View>
+  );
 
 export default JobsByCity

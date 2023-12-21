@@ -24,7 +24,7 @@ import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 
 function JobsByCategory({ route, navigation }) {
   const { CATID } = route.params;
-
+console.log("CATID****************new****************",CATID)
   const jobs = useSelector((state) => state.job.categoryJobs);
   const success = useSelector((state) => state.success.categoryJobSuccess);
   const nodata = useSelector((state) => state.nodata.categoryJobNoData);
@@ -36,13 +36,21 @@ function JobsByCategory({ route, navigation }) {
   const [ID, setID] = useState();
 
   useEffect(() => {
-    if (ID && loading) {
+    console.log(" ***jobs category** useeffect")
+    console.log(" ***jobs category** useeffect", ID)
+    console.log(" ***jobs category** useeffect",loading)
+
+    if (ID) {
+      // setLoading(true);
+      console.log(" ***jobs category** calling dispatch")
+
       dispatch(CategoryJobs(ID, CATID));
     }
   }, [ID, loading, dispatch, CATID]);
 
   useEffect(() => {
     if (jobs && jobs.length > 0) {
+      console.log(" ***jobs category**",jobs)
       setData(jobs);
       setLoading(false);
     } else if (jobs && jobs.length === 0) {
@@ -129,7 +137,7 @@ function JobsByCategory({ route, navigation }) {
           ) : error ? (
             <ErrorView />
           ) : (
-            <DataView data={data} />
+            <DataView data={data} navigation={navigation} />
           )}
         </View>
       </ScrollView>
@@ -185,7 +193,7 @@ const ErrorView = () => (
   </View>
 );
 
-const DataView = ({ data }) => (
+const DataView = ({ data,navigation }) => (
   <>
     <SafeAreaView>
       <FlatList
@@ -198,7 +206,12 @@ const DataView = ({ data }) => (
         style={{ marginHorizontal: 0, marginTop: 10 }}
         data={data}
         renderItem={({ item }) => (
-          <Pressable onPress={() => JobClick(item.id)}>
+          <Pressable
+            onPress={() => {
+              console.log("renderItem****", item);
+              navigation.push("ApiDescription", { ID: item.id });
+              // JobClick(item.id);
+            }}>
             <View
               style={{
                 marginLeft: 25,

@@ -27,7 +27,7 @@ const data = [
 ];
 
 function Jobs({ navigation }) {
-  console.log("Inside!! Jobs Component");
+  console.log("Inside!! Jobs Component***");
 
   const jobs = useSelector((state) => state.job.jobs);
 
@@ -66,8 +66,9 @@ function Jobs({ navigation }) {
   }, [dispatch, jobs, ID]);
 
   const JobClick = (val) => {
+    console.log("Inside JobClick!!!");
+
     let num = Number(val.company);
-    console.log(num);
     if (isNaN(num)) {
       navigation.push("ApiDescription", { ID: val.id });
     } else {
@@ -197,7 +198,10 @@ function Jobs({ navigation }) {
                             <Ripple
                               rippleColor="#13a3e1"
                               rippleOpacity={0.2}
-                              onPress={() => JobClick(item)}>
+                              onPress={() => {
+                                console.log("Pressing JOBCLICK!!", item);
+                                JobClick(item);
+                              }}>
                               <View
                                 style={{
                                   marginLeft: 25,
