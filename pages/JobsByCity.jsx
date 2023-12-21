@@ -37,9 +37,12 @@ function JobsByCity({ route, navigation }) {
 
 	useEffect(() => {
         if (ID && cityName !== fetchedCity) {
+			setIsLoading(true); // Reset loading state
+			setData([])
             dispatch(CityJobs(ID, cityName.split(' ')[0]));
             setFetchedCity(cityName);
-            setIsLoading(true); // Reset loading state
+           
+			// setData([])
         }
     }, [ID, cityName, fetchedCity, dispatch]);
 
@@ -91,9 +94,10 @@ function JobsByCity({ route, navigation }) {
 					}}>Jobs</Text>
 				</View>
 				{isLoading ?
-					<View style={{ marginTop: 200 }}>
-						<ActivityIndicator size={60} color="#13A3E1" />
-					</View>
+					( <ActivityIndicator size={60} color="#13A3E1" style={{ marginTop: 200 }} />)
+					: nodata || (data && data.length === 0) ? (
+						<NoDataView />
+					  )
 					:
 					<SafeAreaView>
 						<FlatList nestedScrollEnabled={false} scrollEnabled={false}
@@ -218,5 +222,23 @@ function JobsByCity({ route, navigation }) {
 		</View>
 	)
 }
+
+const NoDataView = () => (
+	<View style={{ marginTop: 200 }}>
+	  <Image
+		source={require("../assets/nodata.png")}
+		style={{
+		  width: 260,
+		  height: 260,
+		  marginLeft: 80,
+		  marginBottom: -20,
+		  marginTop: 40,
+		}}
+	  />
+	  <Text style={{ textAlign: "center", fontFamily: "poppins_medium" }}>
+		No Jobs Found
+	  </Text>
+	</View>
+  );
 
 export default JobsByCity
