@@ -185,12 +185,15 @@ export const JobByID = (user, id) => async (dispatch) => {
   }
 };
 
-export const CityJobs = (user, id) => async (dispatch) => {
+export const CityJobs = (user, cityName) => async (dispatch) => {
+  console.log("Fetching jobss by city^^^^^");
+
   try {
     dispatch({ type: CITY_JOB_LOADING });
     const {
       data: { data },
-    } = await api.fetchJobByCity(user, id);
+    } = await api.fetchJobByCity(user, cityName);
+    console.log("Fetching jobss by city",  data);
     if (data.length > 0) {
       dispatch({ type: GET_JOBS_BY_CITY, payload: { cityJobs: data } });
       dispatch({ type: SUCCESS });
@@ -288,11 +291,13 @@ export const FeaturedProviderJobs = (id) => async (dispatch) => {
 
 export const CategoryJobs = (user, id) => async (dispatch) => {
   try {
+    console.log("Insideee jobsAction  **")
     dispatch({ type: LOADING });
     dispatch({ type: CATEGORY_JOB_LOADING });
     const {
       data: { data },
     } = await api.fetchJobByCategory(user, id);
+    console.log("jobsAction  **",data)
     if (data.length > 0) {
       dispatch({ type: GET_JOBS_BY_CATEGORY, payload: { categoryJobs: data } });
       dispatch({ type: SUCCESS });
