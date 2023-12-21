@@ -164,7 +164,7 @@ function Cities({ navigation }) {
                                                 style={{ marginHorizontal: 0, marginTop: 10 }} data={data}
                                                 renderItem={({ item }) => (
                                                     <Pressable
-                                                        onPress={() => navigation.push('JobsByCity', { CITYID: item.id })}>
+                                                        onPress={() => navigation.push('JobsByCity', { CITYID: item.id, cityName: item.name })}>
                                                         <View
                                                             style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                             <Text style={{
