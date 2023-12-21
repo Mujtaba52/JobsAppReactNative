@@ -32,6 +32,7 @@ function Categories({ navigation }) {
 
   useEffect(() => {
     if (isLoading) {
+      // console.log('****categories ****',categories)
       if (!categories) {
         dispatch(AllCategories());
       } else {
@@ -128,7 +129,7 @@ function Categories({ navigation }) {
                             paddingEnd: 90,
                           }}>
                           <Pressable
-                          //  onPress={() => navigation.push('Jobs')}
+                          // onPress={() => navigation.push('Jobs')}
                           >
                             <Image
                               style={{
@@ -181,7 +182,7 @@ function Categories({ navigation }) {
                             <Pressable
                               onPress={() => {
                                 console.log(
-                                  "********************************",
+                                  "****************cat****************",
                                   item.id
                                 );
                                 navigation.push("JobsByCategory", {
