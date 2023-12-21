@@ -137,7 +137,7 @@ console.log("CATID****************new****************",CATID)
           ) : error ? (
             <ErrorView />
           ) : (
-            <DataView data={data} />
+            <DataView data={data} navigation={navigation} />
           )}
         </View>
       </ScrollView>
@@ -193,7 +193,7 @@ const ErrorView = () => (
   </View>
 );
 
-const DataView = ({ data }) => (
+const DataView = ({ data,navigation }) => (
   <>
     <SafeAreaView>
       <FlatList
@@ -209,8 +209,8 @@ const DataView = ({ data }) => (
           <Pressable
             onPress={() => {
               console.log("renderItem****", item);
-
-              JobClick(item.id);
+              navigation.push("ApiDescription", { ID: item.id });
+              // JobClick(item.id);
             }}>
             <View
               style={{
