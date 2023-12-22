@@ -24,7 +24,6 @@ import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 
 function JobsByCategory({ route, navigation }) {
   const { CATID } = route.params;
-console.log("CATID****************new****************",CATID)
   const jobs = useSelector((state) => state.job.categoryJobs);
   const success = useSelector((state) => state.success.categoryJobSuccess);
   const nodata = useSelector((state) => state.nodata.categoryJobNoData);
@@ -32,49 +31,38 @@ console.log("CATID****************new****************",CATID)
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
   const [ID, setID] = useState();
+  const [prevCatId, setPrevCatId] = useState(null);
 
   useEffect(() => {
-    console.log(" ***jobs category** useeffect")
-    console.log(" ***jobs category** useeffect", ID)
-    console.log(" ***jobs category** useeffect",loading)
+    const fetchData = async () => {
+      const id = await AsyncStorage.getItem("ID");
+      setID(id);
+    };
+    fetchData();
+  }, []);
 
-    if (ID) {
-      // setLoading(true);
-      console.log(" ***jobs category** calling dispatch")
-
+  useEffect(() => {
+    if (CATID !== prevCatId && ID) {
+      setData([]);
+      setLoading(true);
       dispatch(CategoryJobs(ID, CATID));
+      setPrevCatId(CATID);
     }
-  }, [ID, loading, dispatch, CATID]);
+  }, [CATID, prevCatId, ID, dispatch]);
 
   useEffect(() => {
-    if (jobs && jobs.length > 0) {
-      console.log(" ***jobs category**",jobs)
+    if (jobs) {
       setData(jobs);
-      setLoading(false);
-    } else if (jobs && jobs.length === 0) {
-      setLoading(false);
     }
-  }, [jobs]);
-
-  useEffect(() => {
     if (success || error || nodata) {
       setLoading(false);
     }
-  }, [success, error, nodata]);
+  }, [jobs, success, error, nodata]);
 
   const JobClick = (id) => {
     recordInteraction(id, ID, "", "", "JOB").then((res) => console.log(res));
     navigation.push("JobDetails", { ID: id });
-  };
-
-  useEffect(() => {
-    GetData();
-  }, []);
-  const GetData = async () => {
-    const id = await AsyncStorage.getItem("ID");
-    setID(id);
   };
 
   return (
