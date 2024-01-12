@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import PhoneModal from '../Components/PhoneModal'
 
 const ProviderProfile = ({ navigation }) => {
-
+console.log("helllllllllloo");
     const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
     const dispatch = useDispatch();

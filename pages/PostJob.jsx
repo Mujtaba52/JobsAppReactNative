@@ -113,7 +113,7 @@ function PostJob({ navigation }) {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const toggleDrawerVisibility = () => setDrawerVisible(!drawerVisible);
 
-  const [verify, setVerify] = useState();
+  const [verify, setVerify] = useState(false);
   const toggleVerify = () => setVerify(!verify);
   const [text, setText] = useState("Please Complete your Profile First");
   const click = (t) => {

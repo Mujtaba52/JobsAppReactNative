@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CVByUser } from '../API/actions/cvActions';
 import DistributeModal from '../Components/DistributeModal';
 import {distributeResume} from "../API";
-
+import { fetchSeeker } from '../API';
 function Resume({ navigation }) {
   const dispatch = useDispatch();
   const [ID, setID] = useState();
@@ -52,18 +52,45 @@ function Resume({ navigation }) {
   const [completed, setCompleted] = useState(true)
 
   const [verify, setVerify] = useState(false)
+  // const toggleDistributeVisible = (dis) => {
+  //   if (dis) {
+  //     distributeResume(cv).then(res => {
+  //       const { data: { responseCode } } = res;
+  //       if (responseCode===200){
+  //         setVerify(false)
+  //       }
+  //     })
+  //   }
+  //   setVerify(!verify)
+  // }
   const toggleDistributeVisible = (dis) => {
     if (dis) {
-      distributeResume(cv).then(res => {
-        const { data: { responseCode } } = res;
-        if (responseCode===200){
-          setVerify(false)
-        }
-      })
+      // First, fetch the seeker's details
+      fetchSeeker(ID) // Assuming you have access to the seeker's ID
+        .then(res => {
+          const { data } = res;
+          if (data.activated === true) {
+            // If the seeker is activated, you can proceed to distribute the resume
+            distributeResume(cv).then(res => {
+              const { data: { responseCode } } = res;
+              if (responseCode === 200) {
+                setVerify(false);
+              }
+            });
+          } else {
+            // If the seeker is not activated, show an error message
+            alert("Please activate your account before distributing your resume.");
+          }
+        })
+        .catch(error => {
+          // Handle any errors that occur while fetching the seeker's details
+          console.error("Error fetching seeker details:", error);
+        });
+    }else{
+      setVerify(!verify);
     }
-    setVerify(!verify)
-  }
-
+    
+  };
   return (
     <View style={{ flex: 1 }}>
       <DistributeModal visible={verify} toggleVisible={toggleDistributeVisible} />
