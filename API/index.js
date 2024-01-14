@@ -255,6 +255,12 @@ export const completeRegistration = (name, size, id) =>
     id: id,
   });
 
+  export const updateSeekerStatus = (email) =>
+  API.post("/api/seeker/updateStatus", {
+    email: email,
+    activated: true,
+  });
+
 //JOBS API CALL
 export const fetchAllJobs = (user) => API.post("/jobs/all", { user: user });
 // .then((response) => {
