@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CVByUser } from '../API/actions/cvActions';
 import DistributeModal from '../Components/DistributeModal';
+import ActivateAccountModal from '../Components/ActivateAccountModal';
 import {distributeResume} from "../API";
 import { fetchSeeker } from '../API';
 function Resume({ navigation }) {
@@ -52,6 +53,8 @@ function Resume({ navigation }) {
   const [completed, setCompleted] = useState(true)
 
   const [verify, setVerify] = useState(false)
+  const [verifyAccount, setVerifyAccount] = useState(false)
+
   // const toggleDistributeVisible = (dis) => {
   //   if (dis) {
   //     distributeResume(cv).then(res => {
@@ -69,7 +72,8 @@ function Resume({ navigation }) {
       fetchSeeker(ID) // Assuming you have access to the seeker's ID
         .then(res => {
           const { data } = res;
-          if (data.activated === true) {
+          console.log("data.activated===>>",data.data.activated)
+          if (data.data.activated === 1) {
             // If the seeker is activated, you can proceed to distribute the resume
             distributeResume(cv).then(res => {
               const { data: { responseCode } } = res;
@@ -77,9 +81,11 @@ function Resume({ navigation }) {
                 setVerify(false);
               }
             });
+            setVerify(!verify)
           } else {
             // If the seeker is not activated, show an error message
-            alert("Please activate your account before distributing your resume.");
+            // alert("Please activate your account before distributing your resume.");
+            setVerifyAccount(!verifyAccount)
           }
         })
         .catch(error => {
@@ -94,6 +100,7 @@ function Resume({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <DistributeModal visible={verify} toggleVisible={toggleDistributeVisible} />
+      <ActivateAccountModal visible={verifyAccount} toggleVisible={() => setVerifyAccount(false)} navigation={navigation} />
       <ScrollView style={{ backgroundColor: '#F1F1F1' }}>
 
         {isLoading ?
