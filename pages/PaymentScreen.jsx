@@ -20,7 +20,7 @@ import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 import ButtonComp from "../Components/ButtonComp";
 import paypalApi from "../API/paypal"
 import { useEffect } from 'react';
-import {API_URL, createUserPlan} from "../API";
+import {API_URL, createUserPlan, updateSeekerStatus} from "../API";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import LoadingModal from '../Components/LoadingModal';
@@ -35,10 +35,6 @@ const PaymentScreen = ({ route, navigation }) => {
     const { plan } = route.params
     const { price } = route.params
     const { type } = route.params
-
-    // useEffect(() => {
-    //   console.log(ID)
-    // }, [ID])
 
 
     useEffect(() => {
@@ -167,6 +163,7 @@ const PaymentScreen = ({ route, navigation }) => {
         createUserPlan(ID, plan, postDate, type).then(res => {
             const {data: {responseCode}} = res;
             if (responseCode === 200) {
+                updateSeekerStatus(email)
                 navigation.popToTop()
                 navigation.replace('PaymentSuccessful', { type: type })
             } else {
@@ -174,7 +171,7 @@ const PaymentScreen = ({ route, navigation }) => {
             }
         })
     }
-
+    
 
 const [loadingVisible,setLoadingVisible ] = useState(false)
 const toggleVisibility = (val) => setLoadingVisible(!val)
